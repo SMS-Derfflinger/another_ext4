@@ -17,7 +17,7 @@ pub struct DirEntry {
     /// Distance to the next directory entry.
     rec_len: u16,
     /// Length of the file name.
-    name_len: u8,
+    pub name_len: u8,
     /// File type code.
     file_type: FileType,
     /// File name.
