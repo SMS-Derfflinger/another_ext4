@@ -126,6 +126,7 @@ impl DirEntry {
         Self::required_size(self.name_len as usize)
     }
 
+    /// Get the name's length
     pub fn name_len(&self) -> u8 {
         self.name_len
     }
