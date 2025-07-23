@@ -125,6 +125,10 @@ impl DirEntry {
     pub fn used_size(&self) -> usize {
         Self::required_size(self.name_len as usize)
     }
+
+    pub fn name_len(&self) -> u8 {
+        self.name_len
+    }
 }
 
 #[derive(Debug, Clone, Copy)]
