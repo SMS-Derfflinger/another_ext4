@@ -148,11 +148,11 @@ pub struct Inode {
     /// Upper 16-bits of the inode checksum.
     checksum_hi: u16,
     /// Extra change time bits. This provides sub-second precision.
-    ctime_extra: u32,
+    pub ctime_extra: u32,
     /// Extra modification time bits. This provides sub-second precision.
-    mtime_extra: u32,
+    pub mtime_extra: u32,
     /// Extra access time bits. This provides sub-second precision.
-    atime_extra: u32,
+    pub atime_extra: u32,
     /// File creation time, in seconds since the epoch.
     crtime: u32,
     /// Extra file creation time bits. This provides sub-second precision.
@@ -334,9 +334,7 @@ impl Inode {
 
     /// Get the immutable extent root node
     pub fn extent_root(&self) -> ExtentNode {
-        ExtentNode::from_bytes(unsafe {
-            core::slice::from_raw_parts(self.block.as_ptr(), 60)
-        })
+        ExtentNode::from_bytes(unsafe { core::slice::from_raw_parts(self.block.as_ptr(), 60) })
     }
 
     /// Get the mutable extent root node
