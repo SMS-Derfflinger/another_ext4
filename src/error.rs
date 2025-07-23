@@ -8,7 +8,7 @@ use crate::prelude::*;
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ErrCode {
     /// Operation not permitted.
-    EPERM = 1, 
+    EPERM = 1,
     /// No such file or directory.
     ENOENT = 2,
     /// I/O error.
@@ -56,6 +56,7 @@ pub enum ErrCode {
 }
 
 /// error used in this crate
+#[derive(Copy, PartialEq)]
 pub struct Ext4Error {
     code: ErrCode,
     message: Option<String>,
