@@ -56,7 +56,7 @@ pub enum ErrCode {
 }
 
 /// error used in this crate
-#[derive(Copy, PartialEq)]
+#[derive(PartialEq)]
 pub struct Ext4Error {
     code: ErrCode,
     message: Option<String>,
