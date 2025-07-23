@@ -148,11 +148,11 @@ pub struct Inode {
     /// Upper 16-bits of the inode checksum.
     checksum_hi: u16,
     /// Extra change time bits. This provides sub-second precision.
-    pub ctime_extra: u32,
+    ctime_extra: u32,
     /// Extra modification time bits. This provides sub-second precision.
-    pub mtime_extra: u32,
+    mtime_extra: u32,
     /// Extra access time bits. This provides sub-second precision.
-    pub atime_extra: u32,
+    atime_extra: u32,
     /// File creation time, in seconds since the epoch.
     crtime: u32,
     /// Extra file creation time bits. This provides sub-second precision.
@@ -254,6 +254,18 @@ impl Inode {
 
     pub fn set_ctime(&mut self, ctime: u32) {
         self.ctime = ctime;
+    }
+
+    pub fn ctime_extra(&self) -> u32 {
+        self.ctime_extra
+    }
+
+    pub fn mtime_extra(&self) -> u32 {
+        self.mtime_extra
+    }
+
+    pub fn atime_extra(&self) -> u32 {
+        self.atime_extra
     }
 
     pub fn mtime(&self) -> u32 {
