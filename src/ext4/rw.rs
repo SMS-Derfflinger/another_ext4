@@ -53,7 +53,7 @@ impl Ext4 {
 
     /// Read the root inode from block device
     #[allow(unused)]
-    pub(super) fn read_root_inode(&self) -> InodeRef {
+    pub fn read_root_inode(&self) -> InodeRef {
         self.read_inode(EXT4_ROOT_INO)
     }
 
