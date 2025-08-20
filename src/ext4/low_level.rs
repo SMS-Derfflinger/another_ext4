@@ -162,7 +162,7 @@ impl Ext4 {
     pub fn read(&self, file: InodeId, offset: usize, buf: &mut [u8]) -> Result<usize> {
         // Get the inode of the file
         let file = self.read_inode(file);
-        if !file.inode.is_file() {
+        if !file.inode.is_file() && !file.inode.is_softlink() {
             return_error!(ErrCode::EISDIR, "Inode {} is not a file", file.id);
         }
 
@@ -208,6 +208,18 @@ impl Ext4 {
         }
 
         Ok(cursor)
+    }
+
+    pub fn read_inode_block(&self, file: InodeId, buf: &mut [u8]) -> Result<usize> {
+        let file = self.read_inode(file);
+        let block = file.inode.get_block();
+        let symlink_len = block.iter().position(|&x| x == 0).unwrap_or(block.len());
+
+        let bytes_to_copy = min(symlink_len, buf.len());
+
+        buf[..bytes_to_copy].copy_from_slice(&block[..bytes_to_copy]);
+
+        Ok(bytes_to_copy)
     }
 
     /// Write data to a file. This function will write exactly `data.len()` bytes.

@@ -299,6 +299,10 @@ impl Inode {
         self.block_count as u64 | ((self.osd2.l_blocks_hi as u64) << 32)
     }
 
+    pub fn get_block(&self) -> [u8; 60] {
+        self.block
+    }
+
     /// Get the number of filesystem blocks (`BLOCK_SIZE`) used by the inode.
     pub fn fs_block_count(&self) -> u64 {
         self.block_count() * INODE_BLOCK_SIZE as u64 / BLOCK_SIZE as u64
