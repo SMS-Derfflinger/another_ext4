@@ -373,8 +373,9 @@ impl Ext4 {
         let child_id = self.dir_find_entry(&parent, name)?;
         let mut child = self.read_inode(child_id);
         // Check name conflict
-        if self.dir_find_entry(&new_parent, new_name).is_ok() {
-            return_error!(ErrCode::EEXIST, "Dest name {} already exists", new_name);
+        if let Ok(new_id) = self.dir_find_entry(&new_parent, new_name) {
+            let mut new_child = self.read_inode(new_id);
+            self.unlink_inode(&mut new_parent, &mut new_child, new_name, true)?;
         }
         // Move
         self.unlink_inode(&mut parent, &mut child, name, false)?;
